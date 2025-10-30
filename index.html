@@ -1,0 +1,513 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kuesioner Pentingnya Belajar By Nizam 8K </title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+            color: #333;
+            min-height: 100vh;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .container {
+            max-width: 800px;
+            width: 100%;
+            background-color: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+            padding: 40px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 8px;
+            background: linear-gradient(90deg, #6a11cb, #2575fc);
+        }
+        
+        h1 {
+            text-align: center;
+            color: #2c3e50;
+            margin-bottom: 10px;
+            font-weight: 700;
+            font-size: 2.2rem;
+        }
+        
+        .subtitle {
+            text-align: center;
+            color: #7f8c8d;
+            margin-bottom: 30px;
+            font-size: 1.1rem;
+        }
+        
+        .form-group {
+            margin-bottom: 25px;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #2c3e50;
+        }
+        
+        input[type="text"] {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            font-size: 16px;
+            transition: all 0.3s ease;
+        }
+        
+        input[type="text"]:focus {
+            border-color: #3498db;
+            box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.2);
+            outline: none;
+        }
+        
+        .question {
+            background-color: #f8f9fa;
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 25px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s ease;
+        }
+        
+        .question:hover {
+            transform: translateY(-5px);
+        }
+        
+        .question-title {
+            font-weight: 600;
+            margin-bottom: 15px;
+            color: #2c3e50;
+            font-size: 1.1rem;
+        }
+        
+        .options {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        
+        .option {
+            display: flex;
+            align-items: center;
+            padding: 12px 15px;
+            background-color: white;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            border: 2px solid #e0e0e0;
+        }
+        
+        .option:hover {
+            background-color: #f1f8ff;
+            border-color: #3498db;
+        }
+        
+        .option.selected {
+            background-color: #e1f5fe;
+            border-color: #0288d1;
+        }
+        
+        .option input {
+            margin-right: 10px;
+            transform: scale(1.2);
+        }
+        
+        .submit-btn {
+            display: block;
+            width: 100%;
+            padding: 15px;
+            background: linear-gradient(90deg, #6a11cb, #2575fc);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 18px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 20px;
+            box-shadow: 0 5px 15px rgba(52, 152, 219, 0.4);
+        }
+        
+        .submit-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(52, 152, 219, 0.6);
+        }
+        
+        .submit-btn:active {
+            transform: translateY(0);
+        }
+        
+        .progress-bar {
+            height: 6px;
+            background-color: #e0e0e0;
+            border-radius: 3px;
+            margin-bottom: 30px;
+            overflow: hidden;
+        }
+        
+        .progress {
+            height: 100%;
+            background: linear-gradient(90deg, #6a11cb, #2575fc);
+            width: 0%;
+            transition: width 0.5s ease;
+        }
+        
+        .notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 15px 25px;
+            background-color: #2ecc71;
+            color: white;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            transform: translateX(150%);
+            transition: transform 0.5s ease;
+            z-index: 1000;
+        }
+        
+        .notification.show {
+            transform: translateX(0);
+        }
+        
+        @media (max-width: 768px) {
+            .container {
+                padding: 25px;
+            }
+            
+            h1 {
+                font-size: 1.8rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Kuesioner Pentingnya Belajar BY NIZAM DZULFIQAR RISMAWAN KELAS 8K</h1>
+        <p class="subtitle">Isi data diri dan pilih jawaban yang sesuai dengan pendapat kamu Selamat mengisi🤗 </p>
+        
+        <div class="progress-bar">
+            <div class="progress" id="progress"></div>
+        </div>
+        
+        <form id="questionnaire">
+            <div class="form-group">
+                <label for="name">Nama Lengkap</label>
+                <input type="text" id="name" name="name" required placeholder="Masukkan nama lengkap Anda">
+            </div>
+            
+            <div class="form-group">
+                <label for="class">Kelas</label>
+                <input type="text" id="class" name="class" required placeholder="Contoh: 8K">
+            </div>
+            
+            <!-- Pertanyaan 1 -->
+            <div class="question">
+                <div class="question-title">1. Menurut Anda, seberapa penting belajar untuk masa depan seseorang?</div>
+                <div class="options">
+                    <label class="option">
+                        <input type="radio" name="q1" value="Sangat Penting">
+                        <span>Sangat Penting</span>
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q1" value="Penting">
+                        <span>Penting</span>
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q1" value="Cukup Penting">
+                        <span>Cukup Penting</span>
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q1" value="Tidak Penting">
+                        <span>Tidak Penting</span>
+                    </label>
+                </div>
+            </div>
+            
+            <!-- Pertanyaan 2 -->
+            <div class="question">
+                <div class="question-title">2. Bagaimana belajar dapat mempengaruhi kualitas hidup seseorang?</div>
+                <div class="options">
+                    <label class="option">
+                        <input type="radio" name="q2" value="Meningkatkan peluang karir">
+                        <span>Meningkatkan peluang karir</span>
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q2" value="Meningkatkan kemampuan berpikir kritis">
+                        <span>Meningkatkan kemampuan berpikir kritis</span>
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q2" value="Memperluas wawasan dan pengetahuan">
+                        <span>Memperluas wawasan dan pengetahuan</span>
+                    </label>
+                   
+                </div>
+            </div>
+            
+            <!-- Pertanyaan 3 -->
+            <div class="question">
+                <div class="question-title">3. Apa manfaat utama dari belajar secara teratur?</div>
+                <div class="options">
+                    <label class="option">
+                        <input type="radio" name="q3" value="Meningkatkan daya ingat">
+                        <span>Meningkatkan daya ingat</span>
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q3" value="Mengembangkan keterampilan baru">
+                        <span>Mengembangkan keterampilan baru</span>
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q3" value="Meningkatkan kepercayaan diri">
+                        <span>Meningkatkan kepercayaan diri</span>
+                    
+                </div>
+            </div>
+            
+            <!-- Pertanyaan 4 -->
+            <div class="question">
+                <div class="question-title">4. Bagaimana belajar dapat membantu dalam pengambilan keputusan?</div>
+                <div class="options">
+                    <label class="option">
+                        <input type="radio" name="q4" value="Memberikan informasi yang diperlukan">
+                        <span>Memberikan informasi yang diperlukan</span>
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q4" value="Mengembangkan kemampuan analisis">
+                        <span>Mengembangkan kemampuan analisis</span>
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q4" value="Membantu mempertimbangkan berbagai perspektif">
+                        <span>Membantu mempertimbangkan berbagai perspektif</span>
+                    
+                </div>
+            </div>
+            
+            <!-- Pertanyaan 5 -->
+            <div class="question">
+                <div class="question-title">5. Mengapa belajar dianggap sebagai investasi terbaik?</div>
+                <div class="options">
+                    <label class="option">
+                        <input type="radio" name="q5" value="Pengetahuan tidak dapat diambil oleh siapa pun">
+                        <span>Pengetahuan tidak dapat diambil oleh siapa pun</span>
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q5" value="Dapat meningkatkan pendapatan di masa depan">
+                        <span>Dapat meningkatkan pendapatan di masa depan</span>
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q5" value="Membuka peluang yang lebih baik">
+                        <span>Membuka peluang yang lebih baik</span>
+                    
+                </div>
+            </div>
+            
+            <!-- Pertanyaan 6 -->
+            <div class="question">
+                <div class="question-title">6. Bagaimana belajar dapat mempengaruhi perkembangan pribadi?</div>
+                <div class="options">
+                    <label class="option">
+                        <input type="radio" name="q6" value="Meningkatkan kemampuan beradaptasi">
+                        <span>Meningkatkan kemampuan beradaptasi</span>
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q6" value="Mengembangkan pola pikir yang lebih terbuka">
+                        <span>Mengembangkan pola pikir yang lebih terbuka</span>
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q6" value="Meningkatkan empati dan pemahaman terhadap orang lain">
+                        <span>Meningkatkan empati dan pemahaman terhadap orang lain</span>
+                    
+                </div>
+            </div>
+            
+            <!-- Pertanyaan 7 -->
+            <div class="question">
+                <div class="question-title">7. Apa peran belajar dalam menghadapi perubahan teknologi?</div>
+                <div class="options">
+                    <label class="option">
+                        <input type="radio" name="q7" value="Membantu tetap relevan di dunia kerja">
+                        <span>Membantu tetap relevan di dunia kerja</span>
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q7" value="Memungkinkan adaptasi dengan teknologi baru">
+                        <span>Memungkinkan adaptasi dengan teknologi baru</span>
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q7" value="Meningkatkan kemampuan memecahkan masalah">
+                        <span>Meningkatkan kemampuan memecahkan masalah</span>
+                    
+                </div>
+            </div>
+            
+            <!-- Pertanyaan 8 -->
+            <div class="question">
+                <div class="question-title">8. Mengapa belajar sepanjang hayat (lifelong learning) penting?</div>
+                <div class="options">
+                    <label class="option">
+                        <input type="radio" name="q8" value="Dunia terus berubah dan berkembang">
+                        <span>Dunia terus berubah dan berkembang</span>
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q8" value="Membantu tetap kompetitif di pasar kerja">
+                        <span>Membantu tetap kompetitif di pasar kerja</span>
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q8" value="Meningkatkan kualitas hidup secara keseluruhan">
+                        <span>Meningkatkan kualitas hidup secara keseluruhan</span>
+                    
+                </div>
+            </div>
+            
+            <!-- Pertanyaan 9 -->
+            <div class="question">
+                <div class="question-title">9. Bagaimana belajar dapat meningkatkan kreativitas?</div>
+                <div class="options">
+                    <label class="option">
+                        <input type="radio" name="q9" value="Memberikan bahan mental untuk berinovasi">
+                        <span>Memberikan bahan mental untuk berinovasi</span>
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q9" value="Membantu melihat hubungan antara ide-ide yang berbeda">
+                        <span>Membantu melihat hubungan antara ide-ide yang berbeda</span>
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q9" value="Mendorong eksperimen dan penemuan baru">
+                        <span>Mendorong eksperimen dan penemuan baru</span>
+                    
+                </div>
+            </div>
+            
+            <!-- Pertanyaan 10 -->
+            <div class="question">
+                <div class="question-title">10. Apa dampak positif belajar terhadap kesehatan mental?</div>
+                <div class="options">
+                    <label class="option">
+                        <input type="radio" name="q10" value="Mengurangi risiko penurunan kognitif">
+                        <span>Mengurangi risiko penurunan kognitif</span>
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q10" value="Meningkatkan rasa pencapaian dan harga diri">
+                        <span>Meningkatkan rasa pencapaian dan harga diri</span>
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q10" value="Membantu mengelola stres dengan lebih baik">
+                        <span>Membantu mengelola stres dengan lebih baik</span>
+                    
+                </div>
+            </div>
+            
+            <button type="submit" class="submit-btn" id="submitBtn">Kirim Jawaban ke WhatsApp</button>
+        </form>
+    </div>
+    
+    <div class="notification" id="notification">
+        Jawaban berhasil dikirim!
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const form = document.getElementById('questionnaire');
+            const progressBar = document.getElementById('progress');
+            const notification = document.getElementById('notification');
+            const options = document.querySelectorAll('.option');
+            const totalQuestions = 10;
+            
+            // Menambahkan event listener untuk setiap opsi
+            options.forEach(option => {
+                option.addEventListener('click', function() {
+                    const radio = this.querySelector('input[type="radio"]');
+                    radio.checked = true;
+                    
+                    // Menambahkan kelas selected ke opsi yang dipilih
+                    const question = this.closest('.question');
+                    const allOptions = question.querySelectorAll('.option');
+                    allOptions.forEach(opt => opt.classList.remove('selected'));
+                    this.classList.add('selected');
+                    
+                    updateProgress();
+                });
+            });
+            
+            // Fungsi untuk memperbarui progress bar
+            function updateProgress() {
+                const answeredQuestions = document.querySelectorAll('input[type="radio"]:checked').length;
+                const progressPercentage = (answeredQuestions / totalQuestions) * 100;
+                progressBar.style.width = `${progressPercentage}%`;
+            }
+            
+            // Event listener untuk form submission
+            form.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                // Validasi apakah semua pertanyaan telah dijawab
+                const allQuestionsAnswered = document.querySelectorAll('input[type="radio"]:checked').length === totalQuestions;
+                const name = document.getElementById('name').value.trim();
+                const studentClass = document.getElementById('class').value.trim();
+                
+                if (!name || !studentClass) {
+                    alert('Harap isi nama dan kelas terlebih dahulu!');
+                    return;
+                }
+                
+                if (!allQuestionsAnswered) {
+                    alert('Harap jawab semua pertanyaan sebelum mengirim!');
+                    return;
+                }
+                
+                // Membuat pesan WhatsApp
+                let message = `*KUESIONER PENTINGNYA BELAJAR*\n\n`;
+                message += `Nama: ${name}\n`;
+                message += `Kelas: ${studentClass}\n\n`;
+                message += `*JAWABAN KUESIONER:*\n\n`;
+                
+                // Menambahkan jawaban untuk setiap pertanyaan
+                for (let i = 1; i <= totalQuestions; i++) {
+                    const selectedOption = document.querySelector(`input[name="q${i}"]:checked`);
+                    message += `${i}. ${selectedOption.value}\n`;
+                }
+                
+                // Encode pesan untuk URL WhatsApp
+                const encodedMessage = encodeURIComponent(message);
+                const phoneNumber = '0895400894104';
+                const whatsappURL = `https://wa.me/${phoneNumber}?text=${encodedMessage}`;
+                
+                // Buka WhatsApp
+                window.open(whatsappURL, '_blank');
+                
+                // Tampilkan notifikasi
+                notification.classList.add('show');
+                setTimeout(() => {
+                    notification.classList.remove('show');
+                }, 3000);
+            });
+            
+            // Inisialisasi progress bar
+            updateProgress();
+        });
+    </script>
+</body>
+</html>
